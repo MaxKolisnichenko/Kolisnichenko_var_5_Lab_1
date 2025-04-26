@@ -1,25 +1,28 @@
-#Лаб.1 Рівень 2. Варіант 5.
+#Лаб.2 Рівень 2. Варіант 5.
 
-def is_number(value):
-    try:
-        return float(value)
-    except ValueError:
-        return None
-
-a = is_number(input("Введіть довжину сторони a: "))
-b = is_number(input("Введіть довжину сторони b: "))
-c = is_number(input("Введіть довжину сторони c: "))
-
-if a is None or b is None or c is None:
-    print("Помилка: Введені значення повинні бути числами.")
-elif a <= 0 or b <= 0 or c <= 0:
-    print("Помилка: Сторони трикутника повинні бути більше 0.")
-elif a + b <= c or a + c <= b or b + c <= a:
-    print("Помилка: Трикутника з такими сторонами не існує.")
+input_str = input("Введіть цілі числа через пробіл: ")
+if not all(s.strip('-').isdigit() for s in input_str.split()):
+    print("Помилка! У введених даних повинні бути тільки цілі числа.")
 else:
-    if a == b == c:
-        print(1)  # рівносторонній
-    elif a == b or a == c or b == c:
-        print(2)  # рівнобедрений
-    else:
-        print(3)  # різносторонній
+    numbers = list(map(int, input_str.split()))
+
+    try:
+        m = int(input("Введіть кількість рядків: "))
+        n = int(input("Введіть кількість стовпців: "))
+        
+        if m <= 0 or n <= 0:
+            print("Помилка! Кількість рядків і стовпців повинна бути більшою за 0.")
+        elif len(numbers) != m * n:
+            print("Помилка! Неправильна кількість чисел для матриці розміром", m, "x", n)
+        else:
+            matrix = [numbers[i * n: (i + 1) * n] for i in range(m)]
+
+            print("\nПочаткова матриця:")
+            for row in matrix:
+                print(row)
+
+            print("\nПеревернута матриця (по горизонталі):")
+            for row in reversed(matrix):
+                print(row)
+    except ValueError:
+        print("Помилка! Введено неціле число для розміру матриці.")
